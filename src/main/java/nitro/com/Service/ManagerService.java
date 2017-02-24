@@ -4,17 +4,30 @@ import nitro.com.Entity.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 @Service
 public class ManagerService {
 
     @Autowired
     FileManager fileManager;
+    public String getPathname(){
+        return fileManager.getPathname();
+    }
+    public String getName(){
+        return fileManager.getName();
+    }
 
-    public String createFile(String body) {
+    public void setFileName(String name){
+        fileManager.setName(name);
+    }
+    public String createFile(String body) throws IOException {
 
-        //fileManager.createFile(body);
+        fileManager.createFile(body);
+        return "create";
        // return "create file ";
-        return "creating file in pathname";
+        //return "creating file in pathname";
 
     }
 
@@ -26,22 +39,26 @@ public class ManagerService {
         //return fileManager.listPath();
     }
 
-    public String upDateFile(String name) {
-        //return fileManager.upDate(name,body);
-        return "update file";
+    public String upDateFile(String body) throws IOException {
+        return fileManager.upDate(body);
+        //return "update file";
     }
 
     public String deleteAllFile() {
         return "delete all file";
     }
 
-    public String deleteFile() {
-        return "delete file";
+    public String deleteFile() throws FileNotFoundException {
+
+        return fileManager.deleteFile();
+
     }
 
 
     public String getInHex(String name) {
-        return "return get in Hex";
+        fileManager.setName(name);
+        return fileManager.returnInHex();
+
     }
 }
 
